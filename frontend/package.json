@@ -1,0 +1,16 @@
+{
+  "name": "appointment-booking-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "dependencies": {
+    "@parcel/transformer-webmanifest": "^2.14.4",
+    "parcel": "^2.14.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {}
+}
