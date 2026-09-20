@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 const API_URL = "http://localhost:8080/api/appointments";
+const LOGIN_URL = "http://localhost:8080/api/auth/login";
 
 const emptyForm = {
   patientName: "",
@@ -10,7 +11,15 @@ const emptyForm = {
   reason: ""
 };
 
+const emptyLogin = {
+  username: "",
+  password: ""
+};
+
 export default function App() {
+  const [loginForm, setLoginForm] = useState(emptyLogin);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loggedInUsername, setLoggedInUsername] = useState("");
   const [form, setForm] = useState(emptyForm);
   const [appointments, setAppointments] = useState([]);
   const [message, setMessage] = useState("");
@@ -19,8 +28,39 @@ export default function App() {
   const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
-    loadAppointments();
-  }, []);
+    if (isAuthenticated) {
+      loadAppointments();
+    }
+  }, [isAuthenticated]);
+
+  function updateLoginForm(event) {
+    setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
+  }
+
+  async function login(event) {
+    event.preventDefault();
+    setMessage("");
+
+    try {
+      const response = await fetch(LOGIN_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginForm)
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || "Login failed.");
+      }
+
+      const result = await response.json();
+      setLoggedInUsername(result.username);
+      setLoginForm(emptyLogin);
+      setIsAuthenticated(true);
+    } catch (error) {
+      setMessage(error.message);
+    }
+  }
 
   //console.log("render");
 
@@ -113,13 +153,71 @@ export default function App() {
       setMessage(error.message);
     }
   }
+
+  function logout() {
+    setIsAuthenticated(false);
+    setLoggedInUsername("");
+    setForm(emptyForm);
+    setEditingId(null);
+    setCurrentPage("add");
+    setMessage("");
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <main>
+        <header>
+          <p className="eyebrow">APPOINTMENT BOOKING</p>
+          <h1>Login</h1>
+        </header>
+
+        <section className="booking-card auth-card">
+          <form onSubmit={login}>
+            <label>
+              Username
+              <input
+                name="username"
+                value={loginForm.username}
+                onChange={updateLoginForm}
+                autoComplete="username"
+                required
+              />
+            </label>
+
+            <label>
+              Password
+              <input
+                type="password"
+                name="password"
+                value={loginForm.password}
+                onChange={updateLoginForm}
+                autoComplete="current-password"
+                required
+              />
+            </label>
+
+            <button type="submit">Login</button>
+          </form>
+
+          {message && <p className="message error-message">{message}</p>}
+          <p className="auth-note">User accounts are created through the backend registration API.</p>
+        </section>
+      </main>
+    );
+  }
   
   if (currentPage === "list") {
     return (
       <main>
         <header>
-          <p className="eyebrow">BOOKING</p>
-          <h1>Appointment List</h1>
+          <div className="page-header">
+            <div>
+              <p className="eyebrow">BOOKING</p>
+              <h1>Appointment List</h1>
+              <p>Signed in as {loggedInUsername}</p>
+            </div>
+            <button className="secondary" onClick={logout}>Logout</button>
+          </div>
         </header>
 
         <section className="appointments">
@@ -188,9 +286,12 @@ export default function App() {
           <p className="eyebrow">EASY SCHEDULING</p>
           <h1>{editingId ? "Edit Appointment" : "Add Appointment"}</h1>
         </div>
-        <button className="secondary" onClick={() => setCurrentPage("list")}>
-          Show appointments
-        </button>
+        <div>
+          <button className="secondary" onClick={() => setCurrentPage("list")}>
+            Show appointments
+          </button>
+          <button className="cancel" onClick={logout}>Logout</button>
+        </div>
       </header>
 
       <section className="booking-card">
