@@ -1,5 +1,10 @@
-package com.durozen.appointmentbooking;
+package com.durozen.appointmentbooking.service;
 
+import com.durozen.appointmentbooking.dto.requestDTO.AuthRequest;
+import com.durozen.appointmentbooking.dto.responseDTO.AuthResponse;
+import com.durozen.appointmentbooking.repo.UserRepository;
+import com.durozen.appointmentbooking.entity.User;
+import com.durozen.appointmentbooking.repo.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,8 @@ public class AuthService {
         if (userRepository.existsByUsername(username)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists.");
         }
+        System.out.println(passwordEncoder.encode(request.getPassword()));
+        System.out.println(passwordEncoder.encode(request.getPassword()));
 
         User user = new User(username, passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);

@@ -1,5 +1,6 @@
 package com.durozen.appointmentbooking;
 
+import com.durozen.appointmentbooking.entity.AppointmentStatus;
 import jakarta.validation.constraints.NotNull;
 
 public class StatusRequest {

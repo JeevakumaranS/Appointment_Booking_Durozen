@@ -1,4 +1,4 @@
-package com.durozen.appointmentbooking;
+package com.durozen.appointmentbooking.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

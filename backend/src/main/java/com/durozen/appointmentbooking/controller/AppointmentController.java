@@ -1,5 +1,8 @@
-package com.durozen.appointmentbooking;
+package com.durozen.appointmentbooking.controller;
 
+import com.durozen.appointmentbooking.StatusRequest;
+import com.durozen.appointmentbooking.entity.Appointment;
+import com.durozen.appointmentbooking.service.AppointmentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

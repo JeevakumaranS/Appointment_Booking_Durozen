@@ -1,4 +1,4 @@
-package com.durozen.appointmentbooking;
+package com.durozen.appointmentbooking.dto.requestDTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

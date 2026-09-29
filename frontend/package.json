@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "parcel src/index.html",
+    "start": "parcel src/index.html --host localhost",
     "build": "parcel build src/index.html"
   },
   "dependencies": {
     "@parcel/transformer-webmanifest": "^2.14.4",
-    "parcel": "^2.14.4",
+    "axios": "^1.20.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^6.30.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  }
 }

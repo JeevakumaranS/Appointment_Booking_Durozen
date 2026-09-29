@@ -1,5 +1,10 @@
-package com.durozen.appointmentbooking;
+package com.durozen.appointmentbooking.service;
 
+import com.durozen.appointmentbooking.entity.Appointment;
+import com.durozen.appointmentbooking.entity.AppointmentStatus;
+import com.durozen.appointmentbooking.exception.AppointmentNotFoundException;
+import com.durozen.appointmentbooking.exception.InvalidAppointmentStatusException;
+import com.durozen.appointmentbooking.repo.AppointmentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

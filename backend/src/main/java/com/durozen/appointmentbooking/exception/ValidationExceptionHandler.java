@@ -1,4 +1,4 @@
-package com.durozen.appointmentbooking;
+package com.durozen.appointmentbooking.exception;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

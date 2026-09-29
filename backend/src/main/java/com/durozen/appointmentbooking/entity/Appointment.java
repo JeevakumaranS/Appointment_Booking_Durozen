@@ -1,4 +1,4 @@
-package com.durozen.appointmentbooking;
+package com.durozen.appointmentbooking.entity;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;

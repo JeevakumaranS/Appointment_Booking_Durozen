@@ -1,5 +1,8 @@
-package com.durozen.appointmentbooking;
+package com.durozen.appointmentbooking.controller;
 
+import com.durozen.appointmentbooking.dto.requestDTO.AuthRequest;
+import com.durozen.appointmentbooking.dto.responseDTO.AuthResponse;
+import com.durozen.appointmentbooking.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
