@@ -44,6 +44,25 @@ the Spring Boot implementation with FastAPI.
 
 Interactive API documentation is available at `http://localhost:8080/docs`.
 
+## Create an admin account
+
+From the `backend-fastAPI` directory, run:
+
+```powershell
+python create_admin.py
+```
+
+The CLI prompts for a username and password (twice to confirm). You can also
+provide the username with `python create_admin.py --username admin`; the
+password is still entered securely at the prompt. The account is created in
+the configured database using the same password hashing and duplicate-username
+checks as API registration.
+
+The current user model does not distinguish admin accounts from other users.
+This command provisions an account through the CLI, but does not grant it
+separate permissions; any authenticated user can access the appointment
+endpoints.
+
 ## Authentication
 
 `POST /api/auth/login` and `POST /api/auth/register` return a signed JWT:
